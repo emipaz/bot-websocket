@@ -9,7 +9,7 @@ async def handler(websocket, path):
     session_id = str(uuid.uuid4())
     active_sessions[session_id] = []
 
-    print(f"Nueva Coneccion. Session ID: {session_id}")
+    print(f"Nueva Conexion. Session ID: {session_id}")
 
     try:
         async for message in websocket:
@@ -21,7 +21,7 @@ async def handler(websocket, path):
 
             active_sessions[session_id].append(data['message'])
 
-            print(f"Mensaje Recibido de la sesion {session_id}: {data['message']}")
+            print(f"Mensaje de la sesion {session_id}: {data['message']}")
 
             response = {
                 'session_id': session_id,
