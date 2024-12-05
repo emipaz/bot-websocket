@@ -21,7 +21,7 @@ async def handler(websocket, path):
 
             active_sessions[session_id].append(data['message'])
 
-            print(f"Mensaje de la sesion {session_id}: {data['message']}")
+            print(f"Mensaje Recibido de la sesion {session_id}: {data['message']}")
 
             response = {
                 'session_id': session_id,
@@ -30,7 +30,7 @@ async def handler(websocket, path):
 
             await websocket.send(json.dumps(response))
     except websockets.exceptions.ConnectionClosed:
-        print(f"coneccion cerrada: {session_id}")
+        print(f"conexion cerrada: {session_id}")
 
     if session_id in active_sessions:
         print(f"Limpiando  session: {session_id}")
