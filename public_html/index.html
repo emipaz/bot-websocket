@@ -3,6 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>WebSocket Client</title>
+    <style> #alertBox { 
+        display: none; 
+        position: fixed; 
+        left: 50%; 
+        top: 50%; 
+        transform: translate(-50%, -50%); 
+        padding: 20px; 
+        border: 1px 
+        solid black; 
+        background-color: white; 
+        z-index: 1000; } 
+    </style>
 </head>
 <body>
     <h1>WebSocket Client</h1>
@@ -10,7 +22,13 @@
         <input type="text" id="messageInput" placeholder="Escribe tu mensaje aquí" required>
         <button type="submit">Enviar</button>
     </form>
+
     <div id="responseArea"></div>
+        <div id="alertBox"> 
+            <p>La sesión está a punto de cerrarse por inactividad. ¿Deseas mantener la conexión?</p> 
+            <button onclick="confirmAlert(true)">Sí</button> 
+            <button onclick="confirmAlert(false)">No</button> 
+        </div>
     <script src="client.js"></script>
 </body>
 </html>
