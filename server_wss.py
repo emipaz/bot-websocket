@@ -10,10 +10,11 @@ SECRET_KEY = "tu_clave_secreta"
 schema = {
     "type": "object",
     "properties": {
+        "role":{"type":"string"},
         "session_id": {"type": "string"},
-        "message": {"type": "string"}
+        "content": {"type": "string"}
     },
-    "required": ["session_id", "message"]
+    "required": ["session_id", "content", "role"]
 }
 
 active_sessions = {}
@@ -30,8 +31,7 @@ async def handler(websocket, path):
     session_id = str(uuid.uuid4())
     active_sessions[session_id] = []
     print(f"New connection established. Session ID: {session_id}")
-    response = {
-                'session_id': session_id,}
+    response = {'session_id': session_id,}
     await websocket.send(json.dumps(response))
 
     try:
@@ -41,11 +41,11 @@ async def handler(websocket, path):
             if not validate_message(data):
                 print("Invalid message format")
                 continue
-            active_sessions[session_id].append(data['message'])
-            print(f"Message received from session {session_id}: {data['message']}")
+            active_sessions[session_id].append(data['content'])
+            print(f"Message received from session {session_id}: {data['content']}")
             response = {
                 'session_id': session_id,
-                'reply': f"Message received: {data['message']}"
+                'reply': f"Message received: {data['content']}"
             }
             await websocket.send(json.dumps(response))
     except websockets.exceptions.ConnectionClosed:
